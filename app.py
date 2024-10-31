@@ -1,4 +1,6 @@
 from flask import Flask, request, render_template
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
@@ -11,8 +13,11 @@ documents = [
 ]
 
 def search_documents(query):
-    """Simple search function to match query against documents."""
-    results = [doc for doc in documents if query.lower() in doc.lower()]
+    """Search function using cosine similarity."""
+    vectorizer = TfidfVectorizer().fit_transform([query] + documents)
+    vectors = vectorizer.toarray()
+    cosine_matrix = cosine_similarity(vectors[0:1], vectors[1:])
+    results = [documents[i] for i in cosine_matrix.argsort()[0][::-1] if cosine_matrix[0][i] > 0]
     return results
 
 @app.route('/', methods=['GET', 'POST'])
