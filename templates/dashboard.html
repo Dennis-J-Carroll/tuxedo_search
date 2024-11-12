@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Agent Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/dashboard.js" defer></script>
+</head>
+<body>
+    <h1>AI Agent Dashboard</h1>
+    
+    <div>
+        <label for="dataset">Dataset:</label>
+        <input type="file" id="dataset">
+    </div>
+    
+    <div>
+        <label for="epochs">Epochs:</label>
+        <input type="number" id="epochs" value="10">
+    </div>
+
+    <button id="train-btn">Train Model</button>
+    
+    <div>
+        <canvas id="loss-chart"></canvas>
+    </div>
+
+    <div id="model-summary"></div>
+</body>
+</html>
