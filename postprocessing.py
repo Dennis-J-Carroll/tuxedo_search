@@ -1,4 +1,4 @@
 def decode_output(output):
-    # Implement your output decoding logic here
-    decoded_output = ...
+    # Example decoding: Convert model output to string
+    decoded_output = ' '.join(output[0])
     return decoded_output
