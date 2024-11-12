@@ -1,4 +1,11 @@
-# Existing code for the neural network model goes here
+# Import necessary libraries and modules
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from preprocessing import preprocess_text
+from postprocessing import decode_output
+
+# Load the trained model
+model = load_model('DeNN_o1.h5')
 
 model.save('DeNN_o1.h5')
 
