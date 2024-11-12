@@ -41,15 +41,27 @@ def dashboard():
 
 @app.route('/train', methods=['POST'])
 def train():
+    if 'dataset' not in request.files:
+        return jsonify({'error': 'No dataset file provided.'}), 400
+
     dataset = request.files['dataset']
     epochs = int(request.form['epochs'])
+
+    if not dataset:
+        return jsonify({'error': 'Invalid dataset file.'}), 400
 
     filename = secure_filename(dataset.filename)
     dataset.save(filename)
 
-    model = keras.models.load_model('Desktop/CODE_SPACE_/DEEP_L_/DeNN_o1.py') 
+    model = None
+
+    @app.before_first_request
+    def load_model():
+        global model
+        model = keras.models.load_model('model.h5')
     
     history = model.fit(dataset, epochs=epochs)
+    model.save('model.h5')
 
     os.remove(filename)
 
