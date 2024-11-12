@@ -1,6 +1,11 @@
-from flask import Flask, request, render_template
+import os
+from flask import Flask, request, render_template, jsonify
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from werkzeug.utils import secure_filename
+
+import tensorflow as tf
+from tensorflow import keras
 
 app = Flask(__name__)
 
